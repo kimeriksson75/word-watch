@@ -14,7 +14,7 @@ const WordWatch = () => {
 
 	let hours = time.getHours();
 	const minutes = time.getMinutes();
-	if (minutes > 29) {
+	if (minutes > 27) {
 			hours = hours + 1;
 	}
 	const calcMinutes = (minutes) => {
