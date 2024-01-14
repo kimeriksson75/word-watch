@@ -65,8 +65,9 @@ const WordWatch = () => {
 			24: [115, 116, 117, 118],
 	}
 	const itIs = [0, 1, 2, 3, 4, 5, 6, 8, 9]
-	const toOrPast = minutes > 27 && minutes < 33 ? [] : minutes > 30 ? [48, 49, 50, 51] : [45];
-	
+	// const toOrPast =  (minutes > 57 && minutes < 3) ? [] : minutes > 30 ? [48, 49, 50, 51] : [45];
+	const disabledToPastMinutes = [28, 29, 30, 31, 32, 58, 59, 0, 1, 2];
+	const toOrPast = disabledToPastMinutes.includes(minutes) ? [] : minutes < 30 ? [48, 49, 50, 51] : [45];
 	useEffect(() => {
 		setVisibleChars([]);
 		setVisibleChars(visibleChars => [...visibleChars, ...itIs])
