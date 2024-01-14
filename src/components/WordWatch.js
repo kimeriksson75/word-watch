@@ -12,8 +12,11 @@ const WordWatch = () => {
 			watch.push(chars.splice(0, 11));
 	}
 
-	const hours = time.getHours();
+	let hours = time.getHours();
 	const minutes = time.getMinutes();
+	if (minutes > 29) {
+			hours = hours + 1;
+	}
 	const calcMinutes = (minutes) => {
 			const closestMinutes = Math.round(minutes / 5) * 5;
 			return closestMinutes;
