@@ -5,11 +5,11 @@ const WordWatch = () => {
 	const [time, setTime] = useState(new Date());
 	const [visibleChars, setVisibleChars] = useState([]);
 	
-	let chars = 'ITLISASTHPMA ACFIFTEENDCO TWENTYFIVEXW THIRTYFTENOS MINUTESETOUR PASTORUFOURT SEVENXTWELVE NINEFIVECTWO EIGHTFELEVEN SIXTHREEONEG TENSEZACLOCK';
+	let chars = 'KLOCKANTÄRK FEMYISTIONI KVARTQIENZO TJUGOFEMPIM ÖVERKAMHALV ETTUSVLXTVÅ TREMYKYFYRA FEMSFLORSEX SJUÅTTAINIO TIOELVATOLV';
 	chars = chars.replaceAll(' ', '').split('');
 	const watch = [];
-	for (let i = 0; i < 12; i++) {
-			watch.push(chars.splice(0, 12));
+	for (let i = 0; i < 11; i++) {
+			watch.push(chars.splice(0, 11));
 	}
 
 	const hours = time.getHours();
@@ -22,57 +22,55 @@ const WordWatch = () => {
 	const isCharVisible = (c) => memoizedVisibleChars.includes(c);
 
 	const visibleMinutes = {
-			5: [30, 31, 32, 33],
-			10: [43, 44, 45],
-			15: [14, 15, 16, 17, 18, 19, 20],
-			20: [24, 25, 26, 27, 28, 29],
-			25: [24, 25, 26, 27, 28, 29, 30, 31, 32, 33],
-			30: [36, 37, 38, 39, 40, 41],
-			35: [24, 25, 26, 27, 28, 29, 30, 31, 32, 33],
-			40: [24, 25, 26, 27, 28, 29],
-			45: [14, 15, 16, 17, 18, 19, 20],
-			50: [43, 44, 45],
-			55: [30, 31, 32, 33],
+			5: [12, 13, 14],
+			10: [18, 19, 20],
+			15: [24, 25, 26, 27, 28],
+			20: [35, 36, 37, 38, 39, 40],
+			25: [35, 36, 37, 38, 39, 40, 41, 42, 43],
+			30: [55, 56, 57, 58],
+			35: [35, 36, 37, 38, 39, 40, 41, 42, 43],
+			40: [35, 36, 37, 38, 39, 40],
+			45: [24, 25, 26, 27, 28],
+			50: [18, 19, 20],
+			55: [12, 13, 14],
 			60: [],
 			0: [],
 	}
 
 	const visibleHours = {
-			0: [78, 79, 80, 81, 82, 83],
-			1: [116, 117, 118],
-			2: [93, 94, 95],
-			3: [111 ,112, 113, 114, 115],
-			4: [67, 68, 69, 70],
-			5: [88, 89, 90, 91],
-			6: [108, 109, 110],
-			7: [72, 73, 74, 75, 76],
-			8: [96, 97, 98, 99, 100],
-			9: [84, 85, 86, 87],
-			10: [120, 121, 122],
-			11: [102, 103, 104, 105, 106, 107],
-			12: [78, 79, 80, 81, 82, 83],
-			13: [116, 117, 118],
-			14: [93, 94, 95],
-			15: [111 ,112, 113, 114, 115],
-			16: [67, 68, 69, 70],
-			17: [88, 89, 90, 91],
-			18: [108, 109, 110],
-			19: [72, 73, 74, 75, 76],
-			20: [96, 97, 98, 99, 100],
-			21: [84, 85, 86, 87],
-			22: [120, 121, 122],
-			23: [102, 103, 104, 105, 106, 107],
-			24: [78, 79, 80, 81, 82, 83],
+			0: [115, 116, 117, 118],
+			1: [60, 61, 62],
+			2: [68, 69, 70],
+			3: [72, 73, 74],
+			4: [79, 80, 81, 82],
+			5: [84, 85, 86],
+			6: [92, 93, 94],
+			7: [96, 97, 98],
+			8: [99, 100, 101, 102],
+			9: [104, 105, 106],
+			10: [108, 109, 110],
+			11: [111, 112, 113, 114],
+			12: [115, 116, 117, 118],
+			13: [60, 61, 62],
+			14: [68, 69, 70],
+			15: [72, 73, 74],
+			16: [79, 80, 81, 82],
+			17: [84, 85, 86],
+			18: [92, 93, 94],
+			19: [96, 97, 98],
+			20: [99, 100, 101, 102],
+			21: [104, 105, 106],
+			22: [108, 109, 110],
+			23: [111, 112, 113, 114],
+			24: [115, 116, 117, 118],
 	}
-	const itIs = [0, 1, 3, 4]
-	const aClock = minutes > 57 || minutes < 3 ? [126, 127, 128, 129, 130, 131] : [];
-	const toOrPast = aClock.length > 0 ? [] : minutes > 30 ? [63, 64] : [60, 61, 62, 63];
+	const itIs = [0, 1, 2, 3, 4, 5, 6, 8, 9]
+	const toOrPast = minutes > 27 && minutes < 33 ? [] : minutes > 30 ? [48, 49, 50, 51] : [45];
 	
 	useEffect(() => {
 		setVisibleChars([]);
 		setVisibleChars(visibleChars => [...visibleChars, ...itIs])
 		setVisibleChars(visibleChars => [...visibleChars, ...toOrPast])
-		setVisibleChars(visibleChars => [...visibleChars, ...aClock])
 		setVisibleChars(visibleChars => [...visibleChars, ...visibleMinutes[calcMinutes(minutes)]])
 		setVisibleChars(visibleChars => [...visibleChars, ...visibleHours[hours]])
 	}, [hours, minutes]);
