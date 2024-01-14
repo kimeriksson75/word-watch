@@ -1,8 +1,8 @@
 body {
   background-color: black;
+  overflow: hidden;
 }
 .App {
   text-align: center;
-  background-color: black;
 }
 
