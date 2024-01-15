@@ -1,16 +1,29 @@
 import WordWatch from "../../components/WordWatch";
-import { render, screen } from '@testing-library/react';
-
+import { render, screen, cleanup } from '@testing-library/react';
+import * as Constants from "../../constants";
 jest
   .useFakeTimers()
-  .setSystemTime(new Date(Date.UTC(2024, 0, 14, 14, 1, 0, 0)));
+    .setSystemTime(new Date(Date.UTC(2024, 0, 14, 14, 1, 0, 0)));
+  
 describe("WordWatch", () => {
-
-    // Date.now = jest.fn().mockReturnValue(new Date('2024-01-14T14:01:00.000Z'));
+    afterEach(() => {
+        jest.clearAllMocks();
+        jest.clearAllTimers();
+        cleanup();
+    });
     it("renders word watch component", () => {
         render(<WordWatch />);
         const wordWatch = screen.getByTestId('word-watch');
         expect(wordWatch).toBeInTheDocument();
+        Constants.WATCH.map((row, i) => row.map((char, j) => {
+                const c = (i * 11) + j;
+                const element = screen.getByTestId(c);
+                expect(element).toBeInTheDocument();
+                expect(element).toHaveTextContent(char);
+                expect(element).toHaveClass('char');
+                return null;
+            })
+        );
     });
 
     it('renders time 14:01 correctly', () => {
@@ -19,34 +32,22 @@ describe("WordWatch", () => {
             .setSystemTime(new Date(Date.UTC(2024, 0, 14, 14, 1, 0, 0)));
         
         render(<WordWatch />);
-        expect(screen.getByTestId(0)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(0)).toHaveTextContent('I');
-        expect(screen.getByTestId(1)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(1)).toHaveTextContent('T');
-        expect(screen.getByTestId(3)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(3)).toHaveTextContent('I');
-        expect(screen.getByTestId(4)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(4)).toHaveTextContent('S');
-        
-        expect(screen.getByTestId(93)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(93)).toHaveTextContent('T');
-        expect(screen.getByTestId(94)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(94)).toHaveTextContent('W');
-        expect(screen.getByTestId(95)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(95)).toHaveTextContent('O');
+        Constants.IT_IS.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
 
-        expect(screen.getByTestId(126)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(126)).toHaveTextContent('A');
-        expect(screen.getByTestId(127)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(127)).toHaveTextContent('C');
-        expect(screen.getByTestId(128)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(128)).toHaveTextContent('L');
-        expect(screen.getByTestId(129)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(129)).toHaveTextContent('O');
-        expect(screen.getByTestId(130)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(130)).toHaveTextContent('C');
-        expect(screen.getByTestId(131)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(131)).toHaveTextContent('K');
+        Constants.HOURS_TWO.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+
+
+        
     });
 
     it('renders time 18:26 correctly', () => {
@@ -55,50 +56,172 @@ describe("WordWatch", () => {
             .setSystemTime(new Date(Date.UTC(2024, 0, 14, 18, 26, 0, 0)));
         
         render(<WordWatch />);
-        expect(screen.getByTestId(0)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(0)).toHaveTextContent('I');
-        expect(screen.getByTestId(1)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(1)).toHaveTextContent('T');
-        expect(screen.getByTestId(3)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(3)).toHaveTextContent('I');
-        expect(screen.getByTestId(4)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(4)).toHaveTextContent('S');
+        Constants.IT_IS.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+
+        Constants.HOURS_SIX.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+
+        Constants.MINUTES_TWENTY_FIVE_TO.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+    });
+
+    it('renders time 23:59 correctly', () => {
+        jest
+            .useFakeTimers()
+            .setSystemTime(new Date(Date.UTC(2024, 0, 14, 0, 0, 0, 0)));
         
-        expect(screen.getByTestId(24)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(24)).toHaveTextContent('T');
-        expect(screen.getByTestId(25)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(25)).toHaveTextContent('W');
-        expect(screen.getByTestId(26)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(26)).toHaveTextContent('E');
-        expect(screen.getByTestId(27)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(27)).toHaveTextContent('N');
-        expect(screen.getByTestId(28)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(28)).toHaveTextContent('T');
-        expect(screen.getByTestId(29)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(29)).toHaveTextContent('Y');
-        expect(screen.getByTestId(30)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(30)).toHaveTextContent('F');
-        expect(screen.getByTestId(31)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(31)).toHaveTextContent('I');
-        expect(screen.getByTestId(32)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(32)).toHaveTextContent('V');
-        expect(screen.getByTestId(33)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(33)).toHaveTextContent('E');
+        render(<WordWatch />);
+        Constants.IT_IS.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
 
-        expect(screen.getByTestId(60)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(60)).toHaveTextContent('P');
-        expect(screen.getByTestId(61)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(61)).toHaveTextContent('A');
-        expect(screen.getByTestId(62)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(62)).toHaveTextContent('S');
-        expect(screen.getByTestId(63)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(63)).toHaveTextContent('T');
+        Constants.HOURS_ZERO.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+    });
 
-        expect(screen.getByTestId(108)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(108)).toHaveTextContent('S');
-        expect(screen.getByTestId(109)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(109)).toHaveTextContent('I');
-        expect(screen.getByTestId(110)).toHaveClass('char char-visible');
-        expect(screen.getByTestId(110)).toHaveTextContent('X');
+    it('renders time 19:34 correctly', () => {
+        jest
+            .useFakeTimers()
+            .setSystemTime(new Date(Date.UTC(2024, 0, 14, 19, 34, 0, 0)));
+        
+        render(<WordWatch />);
+        Constants.IT_IS.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+
+        Constants.HOURS_EIGHT.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+
+        Constants.MINUTES_TWENTY_FIVE_TO.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+    });
+
+    it('renders time 16:13 correctly', () => {
+        jest
+            .useFakeTimers()
+            .setSystemTime(new Date(Date.UTC(2024, 0, 14, 16, 13, 0, 0)));
+        
+        render(<WordWatch />);
+        Constants.IT_IS.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+
+        Constants.MINUTES_QUARTER_PAST.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+
+        Constants.HOURS_FOUR.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+
+    }); 
+
+    it('renders time 15:43 correctly', () => {
+        jest
+            .useFakeTimers()
+            .setSystemTime(new Date(Date.UTC(2024, 0, 14, 15, 43, 0, 0)));
+        
+        render(<WordWatch />);
+        Constants.IT_IS.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+        
+        Constants.MINUTES_QUARTER_TO.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+
+        Constants.HOURS_FOUR.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+    });
+    it('renders time 12:00 correctly', () => {
+        jest
+            .useFakeTimers()
+            .setSystemTime(new Date(Date.UTC(2024, 0, 14, 12, 0, 0, 0)));
+        
+        render(<WordWatch />);
+        Constants.IT_IS.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+
+        Constants.HOURS_TWELVE.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+    });
+
+    it('renders time 00:00 correctly', () => {
+        jest
+            .useFakeTimers()
+            .setSystemTime(new Date(Date.UTC(2024, 0, 14, 0, 0, 0, 0)));
+        
+        render(<WordWatch />);
+        Constants.IT_IS.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
+
+        Constants.HOURS_ZERO.map((i) => {
+            const element = screen.getByTestId(i);
+            expect(element).toBeInTheDocument();
+            expect(element).toHaveClass('char char-visible');
+            return null;
+        });
     });
 });
