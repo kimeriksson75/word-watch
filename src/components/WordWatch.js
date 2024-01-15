@@ -82,19 +82,22 @@ const WordWatch = () => {
 
 	return (
 		<div className="word-watch-container" data-testid="word-watch">
+			<div className="word-watch">
+
 			{Constants.WATCH.map((row, i) => {
 				return (
-					<div className="word-watch" key={i}>
+					<div className="word-watch-row" key={i}>
 						{row.map((char, j) => {
 							const c = (i * 11) + j;
-								return (
-									<div data-testid={c} className={`${isCharVisible(c) ? 'char char-visible' : 'char'}`} key={j}>{char}</div>
-									)
+							return (
+								<div data-testid={c} className={`${isCharVisible(c) ? 'char char-visible' : 'char'}`} key={j}>{char}</div>
+								)
 							})}
 					</div>
 				)}
-			)}
-		</div>
+				)}
+				</div>
+			</div>
 	)
 }
 export default WordWatch;
