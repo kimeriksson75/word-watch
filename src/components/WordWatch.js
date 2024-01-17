@@ -5,7 +5,6 @@ import './WordWatch.css';
 import { SE, EN } from '../constants';
 const WordWatch = (props) => {
 	const { lang } = useParams();
-	console.log('lang', lang)
 	const [language] = useState(lang || 'se');
 	const [time, setTime] = useState(new Date());
 	const [visibleChars, setVisibleChars] = useState([]);
