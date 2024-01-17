@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 
 import './WordWatch.css';
 import { SE, EN } from '../constants';
-const WordWatch = (props) => {
+const WordWatch = () => {
 	const { lang } = useParams();
 	const [language] = useState(lang || 'se');
 	const [time, setTime] = useState(new Date());
@@ -64,7 +64,7 @@ const WordWatch = (props) => {
 		23: Constants.HOURS_ELEVEN,
 		24: Constants.HOURS_TWELVE,
 	};
-	let toOrPast = minutes < 30 ? Constants.PAST : Constants.TO;
+	let toOrPast = minutes < 33 ? Constants.PAST : Constants.TO;
 	toOrPast =  Constants.DISABLED_TO_PAST_MINUTES.includes(minutes) ? [] : toOrPast;
 	
 	
