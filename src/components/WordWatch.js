@@ -1,7 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useParams } from 'react-router';
+
 import './WordWatch.css';
-import * as Constants from '../constants';
-const WordWatch = () => {
+import { SE, EN } from '../constants';
+const WordWatch = (props) => {
+	const { lang } = useParams();
+	console.log('lang', lang)
+	const [language] = useState(lang || 'se');
 	const [time, setTime] = useState(new Date());
 	const [visibleChars, setVisibleChars] = useState([]);
 
@@ -16,8 +21,9 @@ const WordWatch = () => {
 	}
 	
 	const isCharVisible = (c) => memoizedVisibleChars.includes(c);
-
+	const Constants = language === 'se' ? SE : EN;
 	const visibleMinutes = {
+		0: Constants.MINUTES_ZERO,
 		5: Constants.MINUTES_FIVE,
 		10: Constants.MINUTES_TEN,
 		15: Constants.MINUTES_QUARTER_PAST,
@@ -29,7 +35,7 @@ const WordWatch = () => {
 		45: Constants.MINUTES_QUARTER_TO,
 		50: Constants.MINUTES_TEN_TO,
 		55: Constants.MINUTES_FIVE_TO,
-		60: [],
+		60: Constants.MINUTES_ZERO,
 	};
 
 	const visibleHours = {
@@ -59,10 +65,25 @@ const WordWatch = () => {
 		23: Constants.HOURS_ELEVEN,
 		24: Constants.HOURS_TWELVE,
 	};
-	const toOrPast = Constants.DISABLED_TO_PAST_MINUTES.includes(minutes) ? [] : minutes < 30 ? Constants.PAST : Constants.TO;
+	let toOrPast = minutes < 30 ? Constants.PAST : Constants.TO;
+	toOrPast =  Constants.DISABLED_TO_PAST_MINUTES.includes(minutes) ? [] : toOrPast;
+	
+	
+	let aClock = Constants.DISABLED_TO_PAST_MINUTES.includes(minutes) ? Constants.A_CLOCK : [];
+	let min = Constants.MINUTES;
+	if (visibleMinutes[calcMinutes(minutes)] === Constants.MINUTES_QUARTER_PAST ||
+		visibleMinutes[calcMinutes(minutes)] === Constants.MINUTES_QUARTER_TO || 
+		visibleMinutes[calcMinutes(minutes)] === Constants.MINUTES_HALF ||
+		visibleMinutes[calcMinutes(minutes)] === Constants.MINUTES_ZERO) {
+		min = [];
+		aClock = [];
+
+	}
 	useEffect(() => {
 		setVisibleChars([]);
 		setVisibleChars(visibleChars => [...visibleChars, ...Constants.IT_IS])
+		setVisibleChars(visibleChars => [...visibleChars, ...aClock])
+		setVisibleChars(visibleChars => [...visibleChars, ...min])
 		setVisibleChars(visibleChars => [...visibleChars, ...toOrPast])
 		setVisibleChars(visibleChars => [...visibleChars, ...visibleMinutes[calcMinutes(minutes)] || []])
 		setVisibleChars(visibleChars => [...visibleChars, ...visibleHours[hours] || []])
@@ -88,7 +109,7 @@ const WordWatch = () => {
 				return (
 					<div className="word-watch-row" key={i}>
 						{row.map((char, j) => {
-							const c = (i * 11) + j;
+							const c = (i * 12) + j;
 							return (
 								<div data-testid={c} className={`${isCharVisible(c) ? 'char char-visible' : 'char'}`} key={j}>{char}</div>
 								)
