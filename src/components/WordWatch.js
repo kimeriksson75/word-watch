@@ -68,14 +68,17 @@ const WordWatch = () => {
 	toOrPast =  Constants.DISABLED_TO_PAST_MINUTES.includes(minutes) ? [] : toOrPast;
 	
 	
-	let aClock = Constants.DISABLED_TO_PAST_MINUTES.includes(minutes) ? Constants.A_CLOCK : [];
+	let aClock = [];
+
+	if (visibleMinutes[calcMinutes(minutes)] === Constants.MINUTES_ZERO) {
+		aClock = Constants.A_CLOCK;
+	}
 	let min = Constants.MINUTES;
 	if (visibleMinutes[calcMinutes(minutes)] === Constants.MINUTES_QUARTER_PAST ||
 		visibleMinutes[calcMinutes(minutes)] === Constants.MINUTES_QUARTER_TO || 
 		visibleMinutes[calcMinutes(minutes)] === Constants.MINUTES_HALF ||
 		visibleMinutes[calcMinutes(minutes)] === Constants.MINUTES_ZERO) {
 		min = [];
-		aClock = [];
 
 	}
 	useEffect(() => {

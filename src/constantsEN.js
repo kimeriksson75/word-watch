@@ -15,7 +15,7 @@ const WATCH = [
 const IT_IS = [0, 1, 3, 4];
 const TO = [56, 57];
 const PAST = [60, 61, 62, 63];
-const DISABLED_TO_PAST_MINUTES = [58, 59, 0, 1, 2];
+const DISABLED_TO_PAST_MINUTES = [58, 59, 60, 0, 1, 2];
 const MINUTES = [48, 49, 50, 51, 52, 53, 54]
 const A_CLOCK = [126, 127, 128, 129, 130, 131]
 
