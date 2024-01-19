@@ -14,9 +14,10 @@ const WordWatch = () => {
 	if (minutes > 27) {
 			hours = hours + 1;
 	}
+	let closestMinutes;
 	const calcMinutes = (minutes) => {
-			const closestMinutes = Math.round(minutes / 5) * 5;
-			return closestMinutes;
+		closestMinutes = Math.round(minutes / 5) * 5;
+		return closestMinutes;
 	}
 	
 	const isCharVisible = (c) => memoizedVisibleChars.includes(c);
@@ -103,6 +104,28 @@ const WordWatch = () => {
 
 	}, []);
 
+	const renderMinutesDiff = () => {
+		const minutesActualDiff = minutes - closestMinutes;
+		const minutesDiff = Math.abs(minutesActualDiff);
+		const minutesDiffDirection = minutesActualDiff > 0 ? '+' : '-';
+		if (minutesDiff === 0) {
+			return null;
+		}
+		const minutesDiffArray = new Array(minutesDiff).fill('X');
+		
+		return (
+			<div className="minutes-diff">
+				<div className="minutes-diff-direction">{minutesDiffDirection}</div>
+				{
+					minutesDiffArray.map((char) => {
+						return (
+							<div className="minutes-diff-dot">{char}</div>
+						)
+					})
+				}
+			</div>
+		)
+	}
 	return (
 		<div className="word-watch-container" data-testid="word-watch">
 			<div className="word-watch">
@@ -119,6 +142,9 @@ const WordWatch = () => {
 					</div>
 				)}
 				)}
+				<div className="minutes-diff-container">
+						{renderMinutesDiff()}
+				</div>
 				</div>
 			</div>
 	)
